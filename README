@@ -1,0 +1,17 @@
+If you're like me you want your whole Amarok music collection rated according
+to your own personal tastes.  Why? so you can play the songs you like more 
+often with those nice dynamic playlists.
+
+Wouldn't it be nice to have a plugin suited to doing just that?  Here it is!
+
+Installation Instructions:
+
+To generate from source code you need Rake installed and need to be running
+on Linux or OSX.
+
+   rake make:tarball
+   
+Then just install the generated plugin file inside Amarok:
+ 
+  Tools -> Script Manager -> Install Script -> (choose generated file)
+  
