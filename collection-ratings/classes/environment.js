@@ -36,3 +36,17 @@ Environment.autoload = function(source_directory) {
     Importer.include(load_path);
   }
 };
+
+/**
+ * Determines if Amarok is running on GNOME
+ */
+Environment.isGnome = function() {
+  return QProcess.outputOfExecution("which gnome-about") != "";
+}
+
+/**
+ * Determines if Amarok is running on KDE
+ */
+Environment.isKDE = function() {
+  return QProcess.outputOfExecution("which kde4-config") != "";
+}

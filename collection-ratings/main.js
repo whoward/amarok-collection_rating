@@ -7,18 +7,24 @@
  * Author: William Howard
  */
 
+// load all qt bindings the plugin will use.
 Importer.loadQtBinding("qt.core");
+
+// preload the environment variable so we can autoload classes
 Importer.include("classes/environment.js");
 
+// preload the error extension, since we might have an error loading core extensions
+Importer.include("core_extensions/error+amarok.js");
+
 try {
-  Environment.autoload("classes");
   Environment.autoload("core_extensions");
+  Environment.autoload("classes");
   Environment.autoload("lib");
   
   Config = Configuration.deserialize();
   
   if(Environment.isDevelopmentMode()) {
-    Amarok.Window.Statusbar.longMessage("this plugin is currently running in development mode");
+    Amarok.Window.Statusbar.longMessage("the collection ratings plugin is currently running in development mode");
   }
   
   Importer.include("application.js");

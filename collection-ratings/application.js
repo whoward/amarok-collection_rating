@@ -15,6 +15,7 @@ function displayCompletionDetails() {
   var message = sprintf("%d / %d tracks rated. (%3.2f%%)", rated, total, percent);
   
   Amarok.Window.Statusbar.shortMessage(message);
+  Notifications.send("Rating Progress", message)
 } 
 
 Amarok.Engine.trackChanged.connect(function() {
