@@ -8,18 +8,19 @@
  */
 
 Importer.loadQtBinding("qt.core");
-Importer.include("classes/environment.js")
-
-Environment.autoload("classes");
-Environment.autoload("core_extensions");
-
-Config = Configuration.deserialize();
-
-if(Environment.isDevelopmentMode()) {
-  Amarok.Window.Statusbar.longMessage("this plugin is currently running in development mode");
-}
+Importer.include("classes/environment.js");
 
 try {
+  Environment.autoload("classes");
+  Environment.autoload("core_extensions");
+  Environment.autoload("lib");
+  
+  Config = Configuration.deserialize();
+  
+  if(Environment.isDevelopmentMode()) {
+    Amarok.Window.Statusbar.longMessage("this plugin is currently running in development mode");
+  }
+  
   Importer.include("application.js");
 } catch(e) {
   // if for some reason the raised object wasn't an error

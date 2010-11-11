@@ -1,10 +1,10 @@
 
 function totalRatedTracks() {
-  return Amarok.Collection.query("select count(*) from statistics where rating > 0;");
+  return parseInt(Amarok.Collection.query("select count(*) from statistics where rating > 0;")[0]);
 }
 
 function totalTracks() {
-  return Amarok.Collection.query("select count(*) from tracks;");
+  return parseInt(Amarok.Collection.query("select count(*) from tracks;")[0]);
 }
 
 function displayCompletionDetails() {
@@ -12,7 +12,7 @@ function displayCompletionDetails() {
   var total = totalTracks();
   var percent = (rated / total) * 100;
   
-  var message = rated + "/" + total + " tracks rated. ("+percent+"%)";
+  var message = sprintf("%d / %d tracks rated. (%3.2f%%)", rated, total, percent);
   
   Amarok.Window.Statusbar.shortMessage(message);
 } 
