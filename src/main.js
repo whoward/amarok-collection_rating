@@ -8,10 +8,10 @@
  */
 
 Importer.loadQtBinding("qt.core");
+Importer.include("classes/environment.js")
 
-Importer.include("class/environment.js");
-Importer.include("class/configuration.js");
-Importer.include("core_extensions/error+amarok.js");
+Environment.autoload("classes");
+Environment.autoload("core_extensions");
 
 Config = Configuration.deserialize();
 
