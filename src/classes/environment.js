@@ -1,3 +1,4 @@
+
 Environment = new Object();
 
 /**
@@ -24,10 +25,12 @@ Environment.autoload = function(source_directory) {
   
   var iterator = new QDirIterator(autodir, QDirIterator.IteratorFlags(QDirIterator.Subdirectories));
   
-  for(var path = iterator.next(); iterator.hasNext(); path = iterator.next()) {
+  while(iterator.hasNext()) {
+    var path = iterator.next();
+    
     if(!QDir.match(glob_pattern, path))
       continue;
-    
+
     load_path = path.slice(srcdir.length + 1);
     
     Importer.include(load_path);
