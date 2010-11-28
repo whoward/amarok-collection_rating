@@ -35,12 +35,13 @@ Class.mixin(Configuration, MVCObject);
  * @private
  */
 Configuration.prototype.serialize = function() {
-  for(var name in this._attributes) {
-    if(this._attributes.hasOwnProperty(name)) {
-      var value = this._attributeValues[name];
-      
-      if(value) { this.serializeAttribute(name, value); } 
-    }
+  var attributes = Class.instanceVariables(this._attributes);
+  
+  for(var i = 0; i < attributes.length; i++) {
+    var name = attributes[i];
+    var value = this._attributeValues[name];
+    
+    this.serializeAttribute(name, value);
   }
 };
 
@@ -48,10 +49,14 @@ Configuration.prototype.serialize = function() {
  * @private
  */
 Configuration.prototype.deserialize = function() {
-  for(var name in this._attributes) {
-    if(this._attributes.hasOwnProperty(name)) {
-      this._attributeValues[name] = this.deserializeAttribute(name); 
-    }
+  var attributes = Class.instanceVariables(this._attributes);
+  
+  
+  for(var i = 0; i < attributes.length; i++) {
+    var name = attributes[i];
+    var value = this.deserializeAttribute(name);
+    
+    this._assignAttributeValue(name, value);
   }
 };
 
@@ -86,21 +91,24 @@ Configuration.prototype.deserializeAttribute = function(name) {
 Configuration.prototype.serializeAttribute = function(name, value) {
   var attr = this._attributes[name];
   
+  var serializedValue = null;
+  
   switch(attr.type) {
     case "boolean":
-      return value + "";
+      serializedValue = value + "";
       
     case "string":
-      return value;
+      serializedValue = value;
       
     case "integer":
-      return value + "";
+      serializedValue = value + "";
       
     case "float":
-      return value + "";
-  }  
+      serializedValue = value + "";
+  }
+  
+  Amarok.Script.writeConfig(name, serializedValue);
 };
-
 
 /**
  * @private

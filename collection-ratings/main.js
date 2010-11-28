@@ -9,6 +9,7 @@
 
 // load all qt bindings the plugin will use.
 Importer.loadQtBinding("qt.core");
+Importer.loadQtBinding("qt.gui");
 
 // preload the class class because its foundation
 Importer.include("framework/class.js")

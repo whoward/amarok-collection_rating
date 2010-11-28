@@ -14,9 +14,19 @@ function displayCompletionDetails() {
   
   var message = sprintf("%d / %d tracks rated. (%3.2f%%)", rated, total, percent);
   
-  Amarok.Window.Statusbar.shortMessage(message);
-  Notifications.send("Rating Progress", message)
+  if(Config.getUseNotify()) {
+    Notifications.send("Rating Progress", message)
+  } else {
+    Amarok.Window.Statusbar.longMessage(message);
+  }
 } 
+
+Options = new OptionsDialog(this);
+
+Amarok.Window.addSettingsMenu( "config_collection_rating_stats", "Configure Collection Rating Script", "");
+
+Amarok.Window.SettingsMenu.config_collection_rating_stats["triggered()"]
+  .connect(function() { Options.show(); });
 
 Amarok.Engine.trackChanged.connect(function() {
   displayCompletionDetails();

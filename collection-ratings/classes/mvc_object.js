@@ -132,8 +132,11 @@ MVCObject.prototype._assignAttributeValue = function(attribute, newValue) {
  * Retrieves a value to an attribute of this object
  */
 MVCObject.prototype._retrieveAttributeValue = function(attribute) {
-  var defaultValue = this._attributes[attribute].defaultValue;
-  return this._attributeValues[attribute] || defaultValue;
+  if(typeof(this._attributeValues[attribute]) === "undefined") {
+    return this._attributes[attribute].defaultValue;
+  } else {
+    return this._attributeValues[attribute];
+  }
 };
 
 /**
