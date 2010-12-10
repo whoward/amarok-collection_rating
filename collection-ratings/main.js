@@ -6,6 +6,9 @@
  * 
  * Author: William Howard
  */
+ 
+// the current version number for this plugin
+VERSION = [1, 1]
 
 // load all qt bindings the plugin will use.
 Importer.loadQtBinding("qt.core");
@@ -25,12 +28,29 @@ try {
   Environment.autoload("classes");
   Environment.autoload("lib");
   
-  Config = new Configuration();
+  // Create a logging object 
+  Logger = new LoggerClient();
+  Logger.log("CollectionRatingStatistics is starting up");
   
+  // load the user configuration from Amarok
+  Config = new Configuration();
+
+  // Create a object which checks github for updates to my plugin  
+  Updater = new GithubAutoupdater("whoward", "amarok-collection_rating", VERSION);
+
+  Updater.checkForUpdate(function(version) {
+    Updater.getRepositoryInfo(function(info) {
+      var link = sprintf("<a href='%s'>%s</a>", info.homepage, info.homepage);
+      Amarok.alert("A new update of the Collection Ratings plugin is available.  To upgrade please visit " + link); 
+    });
+  });
+  
+  // if we're in development mode let the user know
   if(Environment.isDevelopmentMode()) {
     Amarok.Window.Statusbar.longMessage("the collection ratings plugin is currently running in development mode");
   }
   
+  // finally - boot the plugin
   Importer.include("application.js");
 } catch(e) {
   // if for some reason the raised object wasn't an error

@@ -1,0 +1,1 @@
+/home/will/amarok-workspace/AmarokLogger/logger_client.js

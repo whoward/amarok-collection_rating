@@ -7,10 +7,26 @@ function totalTracks() {
   return parseInt(Amarok.Collection.query("select count(*) from tracks;")[0]);
 }
 
-function displayCompletionDetails() {
+function percentCompleted() {
   var rated = totalRatedTracks();
   var total = totalTracks();
-  var percent = (rated / total) * 100;
+  
+  Logger.log(sprintf("collection statistics: %d rated, %d total", rated, total));
+  
+  if(total === 0) {
+    Logger.log("collection is 0% rated"); 
+    return 0;
+  }
+  if(total === rated) {
+    Logger.log("collection is 100% rated")
+    return 100;
+  }
+  
+  return (rated / total) * 100;  
+};
+
+function displayCompletionDetails() {
+  var percent = percentCompleted();
   
   var message = sprintf("%d / %d tracks rated. (%3.2f%%)", rated, total, percent);
   
