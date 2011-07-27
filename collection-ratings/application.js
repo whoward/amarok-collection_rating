@@ -26,6 +26,8 @@ function percentCompleted() {
 };
 
 function displayCompletionDetails() {
+  var rated = totalRatedTracks();
+  var total = totalTracks();
   var percent = percentCompleted();
   
   var message = sprintf("%d / %d tracks rated. (%3.2f%%)", rated, total, percent);

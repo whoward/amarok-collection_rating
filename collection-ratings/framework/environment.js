@@ -41,12 +41,12 @@ Environment.autoload = function(source_directory) {
  * Determines if Amarok is running on GNOME
  */
 Environment.isGnome = function() {
-  return QProcess.outputOfExecution("which gnome-about") != "";
+  return QProcess.outputOfExecution("which gnome-about") !== "";
 }
 
 /**
  * Determines if Amarok is running on KDE
  */
 Environment.isKDE = function() {
-  return QProcess.outputOfExecution("which kde4-config") != "";
+  return QProcess.outputOfExecution("which kde4-config") !== "";
 }
